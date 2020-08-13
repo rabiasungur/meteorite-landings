@@ -20,3 +20,7 @@ main {
   margin: 0 auto -60px;
   padding: 0 0 60px;
 }
+.fakeimg {
+  height: 200px;
+  background: rgb(199, 203, 241);
+}
