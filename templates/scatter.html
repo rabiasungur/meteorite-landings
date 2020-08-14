@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body>
@@ -44,28 +45,49 @@
         <div class="row">
             <div class="col-sm-4">
                 <h3>Scatter 1</h3>
+                <div id='scat'>
+                    <!-- Plotly chart will be drawn inside this DIV -->
+                </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+
             </div>
             <div class="col-sm-4">
                 <h3>Scatter 2</h3>
+                <div id='plot'>
+                    <!-- Plotly chart will be drawn inside this DIV -->
+                </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+
             </div>
             <div class="col-sm-4">
                 <h3>Scatter 3</h3>
+                <div id='myDiv'>
+                    <!-- Plotly chart will be drawn inside this DIV -->
+                </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+
             </div>
         </div>
-        <!-- Footer-->
-        <footer class="footer mt-auto py-3 navbar-fixed-bottom">
-            <div class="container text-center">
-               <p>Meteorite Landing Project <br>
-                Data Analytics Bootcap 2020</p> 
-            </div >
-            
-        </footer> 
+    </div>
+
+    <!-- Footer-->
+    <footer class="footer mt-auto py-3 navbar-fixed-bottom">
+        <div class="container text-center">
+            <p>Meteorite Landing Project <br>
+                Data Analytics Bootcap 2020</p>
+        </div>
+
+    </footer>
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+        integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+        crossorigin=""></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script type="text/javascript" src="static/js/config.js"></script>
+    <script type="text/javascript" src="static/js/logic.js"></script>
+    <script type="text/javascript" src="static/js/plots.js"></script>
+  
+
 </body>
 
 </html>
