@@ -3,9 +3,10 @@ console.log("hey you");
 d3.json("http://localhost:5000/api/landing_data")
     .then(function (data) {
         console.log(data);
-    })
-    .catch(function (error) {
-        console.log(error);
+    console.log(typeof(data))
+    console.log(data.data);
+    Object.entries(data.data[0]).forEach(function([key, value]) {
+      console.log(key, value)});   
     });
 
 

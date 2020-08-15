@@ -39,7 +39,7 @@ def index():
 
 @app.route("/api/landing_data")
 def landing_data():
-    start_date = datetime(1880,1,1)
+    start_date = datetime(2000,1,1)
     end_date = datetime(2020,1,1)
     landings = mongo.db.landings.find({'year':{'$lt':end_date, '$gt':start_date}}, {'_id':False})
     
