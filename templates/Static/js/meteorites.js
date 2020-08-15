@@ -32,9 +32,7 @@ function createMap(meteorLocation) {
         zoom: 3,
         layers: [satellitemap, meteorLocation]
     });
-    //L.control.layers(BaseMaps, satellitemap)
-    //satellitemap.addTo(myMap)
-
+  
 };
 
 //create the Markers function
@@ -51,8 +49,8 @@ function createMarkers(meteorHits) {
         if (ameteorHit.reclat !==0 && ameteorHit.reclong !==0) {
              //     // for each geolocation, create a marker and bind a popup with the meteors name
             var marker = L.marker([ameteorHit.reclat, ameteorHit.reclong]);
-            marker.bindPopup("<p> name: " + ameteorHit.name + "</p>" +
-            "<p> Mass: " + ameteorHit["mass (g)"] + "</p><p> Location: " + ameteorHit.GeoLocation)
+            marker.bindPopup("<p> Name: " + ameteorHit.name + "</p>" +
+            "<p> Mass: " + ameteorHit["mass (g)"] + "</p><p> Location: " + ameteorHit.GeoLocation + "<p> Year: " + ameteorHit.year)
             // Add the marker to the array
            meteorMarkers.push(marker);
         }
