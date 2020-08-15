@@ -41,7 +41,7 @@ def index():
 def landing_data():
     start_date = datetime(2000,1,1)
     end_date = datetime(2020,1,1)
-    landings = mongo.db.landings.find({'year':{'$lt':end_date, '$gt':start_date}}, {'_id':False})
+    landings = mongo.db.convertedYear.find({}, {'_id':False})
     
     # landings = mongo.db.landings.find_one({}, {'_id':False})
     # return JSONEncoder().encode(landings)
