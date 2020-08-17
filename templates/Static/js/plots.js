@@ -1,87 +1,96 @@
 console.log("hey you");
-
-d3.json("http://localhost:5000/api/landing_data")
+var svgWidth = 1000;
+var svgHeight = 500;
+var margin = {
+  top: 20,
+  right: 40,
+  bottom: 60,
+  left: 100
+};
+var width = svgWidth - margin.left - margin.right;
+var height = svgHeight - margin.top - margin.bottom;
+var svg = d3.select("#scatter")
+  .append("svg")
+  .attr("width", svgWidth)
+  .attr("height", svgHeight);
+var chartGroup = svg.append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+d3.json("http://localhost:5000/api/landingModified")
     .then(function (data) {
-        console.log(data);
-    console.log(typeof(data))
-    console.log(data.data);
-    Object.entries(data.data[0]).forEach(function([key, value]) {
-      console.log(key, value)});   
+      console.log(data);
+      console.log(typeof(data))
+      console.log(data.data);
+
+      var data_count = d3.nest()
+      .key(function(d) {
+        return d.year;
+      })
+      .rollup(function(leaves) {
+        return leaves.length;
+      })
+      .entries(data.data);
+    data_count.forEach(function(element) {
+       console.log(element);
     });
+    var Year = data_count.map(d => d.key);
+    console.log(Year);
+    var Count = data_count.map(d => d.value);
+    console.log(Count);
 
 
-
-
-
-var trace1 = {
-    x: [0]["mass (g)"],
-    y: [0].recclass,
-    type: "bar"
-};
-
-var data = [trace1];
-
-var layout = {
-    title: "Test Chart",
-    xaxis: { title: "size" },
-    yaxis: { title: "Class" }
-};
-
-Plotly.newPlot("plot", data, layout);
-// //------------------------------------------------------------
-var trace2 = {
-  x: [[0].recclass],
-  y: [[0].year],
-  type: "line"
-};
-
-var data = [trace1];
-
-var layout = {
-  title: "Test Chart",
-  xaxis: { title: "size" },
-  yaxis: { title: "Year" }
-};
-
-Plotly.newPlot("scat", data, layout);
-// //---------------------------------------------------------------
-
-// // Scatter plot 1
- var search1 = {
-    x: [0]["mass (g)"],
-    y: [0].recclass,
-    x: [],
-    y: [],
-    mode: 'markers',
-    type: 'scatter',
-    name: 'a',
-    text: ['', '', '', '', ''],
-    marker: { size: 12 }
-  };
+  var xBandScale = d3.scaleBand()
+    .domain(data_count.map(d => d.key))
+    .range([0, width])
+    .padding(0.1);
   
-  var search2 = {
-    x: [0].recclass,
-    y: [0].year,
-    mode: 'markers',
-    type: 'scatter',
-    name: 'B',
-    text: ['', '', '', '', ''],
-    marker: { size: 12 }
-  };
+    // sorting years in an array 
+  data_count.sort(function(a, b) {
+    return d3.ascending(a.key, b.key)
+  })
+  xBandScale.domain(data_count.map(function(d) {
+    return d.key;
+  }));
+
+
+  var yLinearScale = d3.scaleLinear()
+    .domain([0, d3.max(data_count, d => d.value)])
+    .range([height, 0]);
   
-  var data = [ search1, search2 ];
-  
-  var layout = {
-    xaxis: {
-      range: [ 0.75, 2000 ] //use for grams?
-    },
-    yaxis: {
-      range: [0, 100] // use for ??
-    },
-    title:'Meteorite hits',
-    xaxis: { title: "size" },
-    yaxis: { title: "Class" }
-  };
-  
-  Plotly.newPlot('myDiv', data, layout);
- // -----------------------------------------
+  // These will be used to create the chart's axes
+  var bottomAxis = d3.axisBottom(xBandScale);
+  var leftAxis = d3.axisLeft(yLinearScale).ticks(10);
+  // Append two SVG group elements to the chartGroup area,
+  // and create the bottom and left axes inside of them
+  chartGroup.append("g")
+    .call(leftAxis);
+  chartGroup.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
+
+  chartGroup.selectAll(".bar")
+    .data(data_count)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", d => xBandScale(d.key))
+    .attr("y", d => yLinearScale(d.value))
+    .attr("width", xBandScale.bandwidth())
+    .attr("height", d => height - yLinearScale(d.value));
+  // Create axes labels
+  chartGroup.append("text")
+  .attr("transform", `translate(${width / 2}, ${height + margin.top + 13})`)
+  .attr("text-anchor", "middle")
+  .attr("font-size", "16px")
+  .attr("fill", "black")
+  .style("font-weight", "bold")
+  .text("Years");
+  chartGroup.append("text")
+  .attr("y", 0 - ((margin.left / 2) + 2))
+  .attr("x", 0 - (height / 2))
+  .attr("text-anchor", "middle")
+  .attr("font-size", "16px")
+  .attr("fill", "black")
+  .style("font-weight", "bold")
+  .attr("transform", "rotate(-90)")
+  .text("Number of Meteorite Landed on Earth Surface");
+  });

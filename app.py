@@ -16,7 +16,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 # Use flask_pymongo to set up mongo connection
-app.config["MONGO_URI"] = "mongodb://localhost:27017/meteorite_db.landings"
+app.config["MONGO_URI"] = "mongodb://localhost:27017/meteorite_db"
 mongo = PyMongo(app)
 
 @app.after_request # blueprint can also be app~~
@@ -28,14 +28,6 @@ def after_request(response):
 @app.route("/")
 def index():
     return render_template("index.html")
-
-# @app.route("/")
-# def index():
-#     return render_template("map2.html")
-
-# @app.route("/")
-# def index():
-#     return render_template("scatter.html")
 
 @app.route("/api/landing_data")
 def landing_data():
@@ -50,6 +42,20 @@ def landing_data():
         "data": bla
     }
     return jsonify(ble)
+
+@app.route("/api/landingModified")
+def landingsModified():
+    start_date = 2003
+    end_date = 2020
+    landings = mongo.db.landingsModified.find({'year':{'$lt':end_date, '$gt':start_date}}, {'_id':False})
+
+    bla = [landing for landing in landings]
+    ble = {
+        "data": bla
+    }
+    return jsonify(ble)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
