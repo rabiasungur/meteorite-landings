@@ -32,7 +32,17 @@ function createMap(meteorLocation) {
         zoom: 3,
         layers: [satellitemap, meteorLocation]
     });
-  
+  // Create a layer control
+  // Pass in our baseMaps and overlayMaps
+  // Add the layer control to the map
+  // layer is my function
+    L.control.layers(BaseMaps, overlayMaps,
+        {
+            collapsed: false
+        }).addTo(myMap);
+
+
+
 };
 
 //create the Markers function
@@ -46,18 +56,19 @@ function createMarkers(meteorHits) {
         ameteorHit.reclat = +ameteorHit.reclat;
         ameteorHit.reclong = +ameteorHit.reclong;
         // console.log(ameteorHit)
-        if (ameteorHit.reclat !==0 && ameteorHit.reclong !==0) {
-             //     // for each geolocation, create a marker and bind a popup with the meteors name
+        if (ameteorHit.reclat !== 0 && ameteorHit.reclong !== 0) {
+            //     // for each geolocation, create a marker and bind a popup with the meteors name
             var marker = L.marker([ameteorHit.reclat, ameteorHit.reclong]);
             marker.bindPopup("<p> Name: " + ameteorHit.name + "</p>" +
-            "<p> Mass: " + ameteorHit["mass (g)"] + "</p><p> Location: " + ameteorHit.GeoLocation + "<p> Year: " + ameteorHit.year)
+                "<p> Mass: " + ameteorHit["mass (g)"] + "</p><p> Location: " + ameteorHit.GeoLocation + "<p> Year: " + ameteorHit.year)
             // Add the marker to the array
-           meteorMarkers.push(marker);
+            meteorMarkers.push(marker);
         }
-       
+
     }
     console.log(meteorMarkers)
     // Create a layer group made from the meteorHits array, pass it into the createMap function
+
 
     createMap(L.layerGroup(meteorMarkers));
 }
