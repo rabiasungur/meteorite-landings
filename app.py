@@ -48,8 +48,9 @@ def landingsModified():
     start_date = 2003
     end_date = 2020
     landings = mongo.db.landingsModified.find({'year':{'$lt':end_date, '$gt':start_date}}, {'_id':False})
-
+  
     bla = [landing for landing in landings]
+   
     ble = {
         "data": bla
     }
