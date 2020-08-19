@@ -47,7 +47,7 @@ console.log(mass)
       // yaxis: {
       //   range: [0, 100] // use for ??
       // },
-      title: 'Total Mass of Meteorites Landed on Earth by Each Year',
+      title: 'Millions of grams that hit the earth each year',
       xaxis: { title: "Year" },
       yaxis: { title: "Meteorite Size" }
     };
