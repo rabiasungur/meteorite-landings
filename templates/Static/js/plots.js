@@ -79,7 +79,7 @@ d3.json("http://localhost:5000/api/landingModified")
 
     chartGroup.append("text")
     .attr("x", (width / 2))             
-    .attr("y", 0 - (margin.top / 2))
+    .attr("y", 0 - (margin.top / 2 - 5))
     .attr("text-anchor", "middle")  
     .style("font-size", "16px") 
     .text("Number of Meteorite Landed on Earth Surface Each Year");
