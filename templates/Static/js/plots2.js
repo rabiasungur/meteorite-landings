@@ -4,34 +4,52 @@ d3.json("http://localhost:5000/api/landingModified")
     year = []
     console.log(response);
     console.log(typeof (response))
-
-    response.data.forEach((row) => {
+    // Object.entries(response.data[0]).forEach(function ([key, value]) {
+    //   console.log(key, value)
+    //   mass.push
+    // });
+    response.data.forEach((row)=>{
       console.log(row)
       mass.push(row.mass);
       year.push(row.year);
+      //mass.push(row["mass (g)"]
+
 
     })
-    console.log(mass)
+console.log(mass)
 
     var search1 = {
       x: year,
       y: mass,
       mode: 'markers',
-      type: 'scatter',
-
+      type: 'bar',
+      // name: 'a',
+      // text: ['', '', '', '', ''],
       marker: { size: 12 }
     };
-    
-    var data = [search1,];
+
+    // var search2 = {
+    //   x: [0].recclass,
+    //   y: [0].year,
+    //   mode: 'markers',
+    //   type: 'scatter',
+    //   name: 'B',
+    //   text: ['', '', '', '', ''],
+    //   marker: { size: 12 }
+    // };
+
+    var data = [search1, ];
 
     var layout = {
       xaxis: {
-        range: [0,], 
-      },
-      
-      title: 'Does Size count?',
-      xaxis: { title: "year" },
-      yaxis: { title: "size" }
+        range: [0, ], //use for grams?
+       },
+      // yaxis: {
+      //   range: [0, 100] // use for ??
+      // },
+      title: 'Total Mass of Meteorites Landed on Earth by Each Year',
+      xaxis: { title: "Year" },
+      yaxis: { title: "Meteorite Size" }
     };
 
     Plotly.newPlot('myDiv', data, layout);

@@ -76,6 +76,14 @@ d3.json("http://localhost:5000/api/landingModified")
     .attr("y", d => yLinearScale(d.value))
     .attr("width", xBandScale.bandwidth())
     .attr("height", d => height - yLinearScale(d.value));
+
+    chartGroup.append("text")
+    .attr("x", (width / 2))             
+    .attr("y", 0 - (margin.top / 2))
+    .attr("text-anchor", "middle")  
+    .style("font-size", "16px") 
+    .text("Number of Meteorite Landed on Earth Surface Each Year");
+
   // Create axes labels
   chartGroup.append("text")
   .attr("transform", `translate(${width / 2}, ${height + margin.top + 13})`)
@@ -92,5 +100,5 @@ d3.json("http://localhost:5000/api/landingModified")
   .attr("fill", "black")
   .style("font-weight", "bold")
   .attr("transform", "rotate(-90)")
-  .text("Number of Meteorite Landed on Earth Surface");
+  .text("Number of Meteorite");
   });
