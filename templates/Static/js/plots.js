@@ -1,8 +1,8 @@
 console.log("hey you");
-var svgWidth = 1000;
+var svgWidth = 500;
 var svgHeight = 500;
 var margin = {
-  top: 20,
+  top: 40,
   right: 40,
   bottom: 60,
   left: 100

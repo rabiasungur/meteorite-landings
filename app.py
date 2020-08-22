@@ -4,15 +4,6 @@ from flask import Flask, jsonify
 import json
 from datetime import datetime
 
-# from bson import ObjectId
-
-# class JSONEncoder(json.JSONEncoder):
-#     def default(self, o):
-#         if isinstance(o, ObjectId):
-#             return str(o)
-#         return json.JSONEncoder.default(self, o)
-
-
 app = Flask(__name__)
 
 # Use flask_pymongo to set up mongo connection
@@ -35,8 +26,7 @@ def landing_data():
     end_date = datetime(2018,1,5)
     landings = mongo.db.landings.find({'year':{'$lt':end_date, '$gt':start_date}}, {'_id':False})
     
-    # landings = mongo.db.landings.find_one({}, {'_id':False})
-    # return JSONEncoder().encode(landings)
+   
     bla = [landing for landing in landings]
     ble = {
         "data": bla
